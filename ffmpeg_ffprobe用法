@@ -1,0 +1,148 @@
+ffprobe：查看媒体文件头信息工具
+
+ffprobe ceshi.mp3
+
+//会得到一下结果
+
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\BaiduNetdiskDownload\c璇█灏忕櫧鍏ラ棬鍩虹鏁欑▼瑙嗛\day1\3_瑙嗛\01_C璇█姒傝堪01.mp4':
+  Metadata:
+    major_brand     : mp42
+    minor_version   : 0
+    compatible_brands: isommp42
+    creation_time   : 2017-08-30T02:09:19.000000Z
+    
+    #该视频文件的时长是微秒，开始播放时间是 0.000000，整个文件的比特率是223 kb/s
+    Duration: 00:11:05.00, start: 0.000000, bitrate: 223 kb/s
+    #第一个流是音频流，编码格式是h264格式，视频数据是 yuv420p  分辨率为 1920x1080  这路流的比特率为174 kb/s，帧率为每秒钟25帧。
+    
+    Stream #0:0(eng): Video: h264 (Baseline) (avc1 / 0x31637661), yuv420p(tv), 1920x1080 [SAR 1:1 DAR 16:9], 174 kb/s, 25 fps, 25 tbr, 25k tbn
+    
+    Metadata:
+      creation_time   : 2017-08-30T02:09:20.000000Z
+      handler_name    : Mainconcept MP4 Video Media Handler
+      encoder         : AVC Coding
+     # 第二个流是音频流，编码方式为ACC（封装格式为MP4A），并且采用的Profile是LC规格， 采样率是44.1KHz，声道是立体声，这路流的比特率45 kb/s。
+     Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 45 kb/s (default)
+    Metadata:
+      creation_time   : 2017-08-30T02:09:20.000000Z
+      handler_name    : Mainconcept MP4 Sound Media Handler
+      
+      
+      //1 输出详细格式信息  
+         ffprobe -show_format  pm.mp4 
+         
+      //2 输出每个流的具体信息（以JSON格式）
+         ffprobe -print_format json  -show_streams pm.mp4 
+         
+         {
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "Baseline",
+            "codec_type": "video",
+            "codec_time_base": "1/50",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1080,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": 40,
+            "color_range": "tv",
+            "chroma_location": "left",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "r_frame_rate": "25/1",
+            "avg_frame_rate": "25/1",
+            "time_base": "1/25000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 16625000,
+            "duration": "665.000000",
+            "bit_rate": "174961",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "16625",
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0
+            },
+            "tags": {
+                "creation_time": "2017-08-30T02:09:20.000000Z",
+                "language": "eng",
+                "handler_name": "Mainconcept MP4 Video Media Handler",
+                "encoder": "AVC Coding"
+            }
+        },
+        {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_time_base": "1/44100",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "44100",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/44100",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 29326336,
+            "duration": "664.996281",
+            "bit_rate": "45633",
+            "max_bit_rate": "364857",
+            "nb_frames": "28639",
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0
+            },
+            "tags": {
+                "creation_time": "2017-08-30T02:09:20.000000Z",
+                "language": "eng",
+                "handler_name": "Mainconcept MP4 Sound Media Handler"
+            }
+        }
+    ]
+}
+
+    //3 显示帧信息
+    
+      ffprobe -show_frames pm.mp4
+      
+    //4 显示包信息
+    
+       ffprobe -show_packets pm.mp4
+         
+       

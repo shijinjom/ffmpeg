@@ -1,0 +1,14 @@
+FFmpeg API 介绍
+
+1. av_register_all 
+   调用 av_register_all 就可以注册config.h里面开发的编解码器，然后会注册所有的Muxer和Demuxer（封装格式），最后注册所有的Protocol（协议）
+   
+2. av_find_codec    
+   两部分的内容：一部分是寻找解码器，一部分是寻找编码器
+3 avcodec_open2 
+   该函数是打开编解码器（Codec）的函数，无论是编码过程还是解码过程，都会用到这个函数。该函数的输入参数有三个：
+   第一个是AVCodecContext，解码过程由FFmpeg引擎填充，编码过程由开发者自己构造，如果想传入私有参数，则为它的
+   priv_data设置参数；第二个参数是上一步通过av_find_codec寻找出来的编解码器（Codec）；第三个参数一般传NULL。
+   
+4  avcodec_close
+   avcodec_open，那么对应的close就是一个逆过程，找到对应的实现文件中的close函数指针所只指向的函数

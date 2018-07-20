@@ -1,0 +1,72 @@
+1. 通用参数
+ 
+ -f fmt ： 指定格式
+  -i filename：指定输入文件名
+  -y：覆盖已有文件
+  -t duration：指定时长
+  -fs limit_size：设置文件大小的上限
+  -ss time_off： 从指定的时间开始
+  -re：代表按照帧率发送，尤其在作为推流工具的时候一定要加上该参数，否则ffpmeg会按照最高速率向流媒体不停的发送数据。
+  -map：指定输出文件的流映射关系。例如：“-map 1:0 -map 1:1”要求按照第二个输入的文件的第一个流和第二个流写入输出文件。如果没有设置此项，则ffpmeg采用默认的映射关系。
+
+2. 视频参数
+
+  -b：指定比特率（bit/s），ffmpeg默认采用的是VBR的，若指定的该参数，则使用平均比特率。
+  -bitexact：使用标准比特率。
+  -vb：指定视频比特率（bit/s）
+  -r rate：帧速率（fps）
+  -s size：指定分辨率（320x240）
+  -aspect aspect：设置视频长宽比（4:3、16:9或1.33333、1.77777）
+  -croptop size：设置顶部切除尺寸（in pixels）
+  -cropleft size：设置左切除尺寸（in pixels）
+  -cropbottom size：设置地步切除尺寸（in pixels）
+  -cropright size：设置右切除尺寸（in pixels）
+  -padtop size：设置顶部补齐尺寸（in pixels）
+  -padleft size：设置左补齐尺寸（in pixels）
+  -padbottom size：设置地步补齐尺寸（in pixels）
+  -padright size：设置右补齐尺寸（in pixels）
+  -padcolor color：设置补齐颜色
+  -vn：取消视频的输出
+  -vcodec codec：强制使用codec编码方式
+  
+  3. 音频参数
+  
+    -ab：设置比特率（bit/s），对于MP3的格式，想要听到较高品质的声音，建议设置160Kbit/s（单声道80Kbit/s）以上。
+    -aq quality：设置音频质量
+    -ar ratre：设置音频采样率（Hz）
+    -ac channels：设置声道数，1就是单声道，2就是立体声
+    -an：取消音频输出
+     -acodec codec：强制使用codec编码方式
+    -vol volume：设置录制音量大小
+    
+    
+    ffmpeg -formats  列出相关命令
+    
+    剪切视频
+    ffmpeg -i ceshi.mp4 -ss 50 -codec copy -t 20 output.mp4
+    
+    //-ss 从10秒处开始剪切 总共时间为15s    -accurate_seek 要写在 -i 前面   -codec 强制编码
+    ffmpeg -ss 10 -t 15 -accurate_seek -i pm.mp4 -codec copy output.mp4 (建议用这个，更加准确，防止出黑屏)
+    
+    提取一个视频文件中的音频，并保存为文件
+    ffmpeg -i pm.mp4 -vn -acodec copy output.m4a
+    
+    将视频中的音频静音，只保留视频
+    ffmpeg -i pm.mp4 -an -vcodec copy output.mp4 
+    
+    给视频添加水印
+    ffmpeg -i pm.mp4 -i xxx.png -filter_complex "overlay=5:5"  out.mp4
+    
+    将一段视频推送到流媒体服务器上：
+    ffmpeg -re -i pm.mp4 -acodec copy -vcodec copy -f flv rtmp://127.0.0.1/rh/mylive 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

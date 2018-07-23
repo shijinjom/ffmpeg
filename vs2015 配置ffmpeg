@@ -7,7 +7,7 @@
     把dev版本与share版本都下下来解压，dev版本文件夹中的Include和lib目录整个儿复制到VS项目目录下。
     接着将share版本文件夹中bin目录下对应的所有dll复制到项目路径下，如下
     
-     ![image](https://github.com/shijinjom/ffmpeg/img/1532313749.jpg)
+     ![image](https://github.com/shijinjom/ffmpeg/blob/master/img/1532313749.jpg)
      
      
      测试代码

@@ -8,7 +8,15 @@
     接着将share版本文件夹中bin目录下对应的所有dll复制到项目路径下，如下
     
      ![image](https://github.com/shijinjom/ffmpeg/blob/master/img/1532313749.jpg)
-     
+   
+   
+2 头文件配置
+解决方案资源管理器->右键单击项目->属性面板
+属性面板->C/C++->常规->附加包含目录，输入“include”（刚才拷贝头文件的目录）
+
+3导入库配置
+属性面板->链接器->常规->附加库目录，输入“lib”（刚才拷贝库文件的目录）
+属性面板->链接器->输入->附加依赖项，输入“avcodec.lib; avformat.lib; avutil.lib; avdevice.lib; avfilter.lib; swresample.lib; swscale.lib”（导入库的文件名）
      
      测试代码
      
